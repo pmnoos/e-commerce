@@ -1,0 +1,167 @@
+<%
+  home_meta_title = "Digital Apps Store | Diary, Autobiography & Term Deposit"
+  home_meta_description = "Explore premium digital apps for private journaling, autobiography writing, and term deposit tracking. Buy in-store and start using them today."
+  home_meta_image = "#{request.base_url}/storefront_favicon.svg"
+%>
+<% content_for :title, home_meta_title %>
+
+<% content_for :head do %>
+  <meta name="description" content="<%= home_meta_description %>">
+  <meta name="keywords" content="digital apps store, diary app, autobiography app, term deposit tracker, journaling app, memoir app, savings tracker">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="<%= home_meta_title %>">
+  <meta property="og:description" content="<%= home_meta_description %>">
+  <meta property="og:url" content="<%= request.original_url %>">
+  <meta property="og:image" content="<%= home_meta_image %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= home_meta_title %>">
+  <meta name="twitter:description" content="<%= home_meta_description %>">
+  <meta name="twitter:image" content="<%= home_meta_image %>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<% end %>
+
+<section class="storefront-page">
+  <% admin_user = spree_current_user&.has_spree_role?("admin") %>
+
+  <section class="hero-shell">
+    <div class="hero-content">
+      <span class="pill">Digital Product Store</span>
+      <h1>Your Journals. Your Story. All in One Place.</h1>
+      <p>Build your writing practice with focused digital tools for diaries and autobiographical work. Track progress, keep your ideas structured, and publish your next chapter with confidence.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#catalog">Get Started</a>
+        <a class="btn btn-secondary" href="/admin">Admin</a>
+      </div>
+    </div>
+    <div class="hero-panel" aria-hidden="true">
+      <div class="stat-card">
+        <h3>Apps Included</h3>
+        <p><%= @products.size %></p>
+      </div>
+      <div class="stat-card">
+        <h3>Focus</h3>
+        <p>Autobiography-App<br/> Diary-App <br/>Term Deposit Tracker</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="portal-nav" aria-label="Primary navigation">
+    <div class="section-head">
+      <h2>Choose Your Portal</h2>
+      <p>Use the customer path to browse and buy. Use the admin path to manage products and orders.</p>
+    </div>
+    <div class="portal-grid">
+      <article class="portal-card">
+        <h3>Shopper Portal</h3>
+        <p>Browse categories, open product pages, and purchase apps through checkout.</p>
+        <a class="btn btn-primary" href="/products">Browse Products</a>
+      </article>
+      <article class="portal-card">
+        <h3><%= spree_current_user ? "My Account" : "Customer Login" %></h3>
+        <p><%= spree_current_user ? "View orders, profile details, and account settings." : "Sign in to track purchases and manage your account." %></p>
+        <a class="btn btn-secondary" href="<%= spree_current_user ? account_path : login_path %>"><%= spree_current_user ? "Open Account" : "Sign In" %></a>
+      </article>
+      <article class="portal-card <%= admin_user ? "portal-card-admin" : "" %>">
+        <h3>Admin Portal</h3>
+        <p><%= admin_user ? "Add or edit products, manage pricing, and review orders in the dashboard." : "Admin tools for catalog and order management." %></p>
+        <a class="btn <%= admin_user ? "btn-primary" : "btn-secondary" %>" href="<%= admin_user ? "/admin" : "/admin/login" %>"><%= admin_user ? "Open Admin Dashboard" : "Admin Login" %></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="info-grid">
+    <article class="info-card">
+      <h3>Structured Writing</h3>
+      <p>Create entries with a clear timeline and revisit your notes without searching through clutter.</p>
+    </article>
+    <article class="info-card">
+      <h3>Progress Visibility</h3>
+      <p>Keep momentum with a practical overview of your drafts, sessions, and long-term writing goals.</p>
+    </article>
+    <article class="info-card">
+      <h3>Anywhere Access</h3>
+      <p>Open your writing workflow from any browser and continue your work where you left off.</p>
+    </article>
+  </section>
+
+  <section class="steps" aria-label="How it works">
+    <h2>How It Works</h2>
+    <div class="steps-grid">
+      <article class="step-card">
+        <span class="step-index">1</span>
+        <h3>Pick your app</h3>
+        <p>Choose the tool that matches your writing style, from private daily notes to longer personal narratives.</p>
+      </article>
+      <article class="step-card">
+        <span class="step-index">2</span>
+        <h3>Start your entries</h3>
+        <p>Add your content in minutes and build a habit with a clean interface designed for consistency.</p>
+      </article>
+      <article class="step-card">
+        <span class="step-index">3</span>
+        <h3>Review and refine</h3>
+        <p>Revisit earlier drafts, shape your narrative, and turn scattered thoughts into a cohesive story.</p>
+      </article>
+    </div>
+  </section>
+
+  <% product_urls = {
+    "autobiography app" => "https://www.autobiography.live",
+    "my diary app" => "https://pmnoos.github.io/diary_app-landing/",
+    "diary app" => "https://pmnoos.github.io/diary_app-landing/",
+    "term tracker" => "https://pmnoos.github.io/term-tracker/",
+    "term deposit tracker" => "https://pmnoos.github.io/term-tracker/"
+  } %>
+
+
+  <section id="catalog" class="catalog-wrap">
+    <div class="section-head">
+      <h2>Everything You Need</h2>
+      <p>Explore the currently available apps in your digital writing toolkit.</p>
+    </div>
+
+    <div class="catalog">
+    <% product_icons = {
+         "diary app"            => { icon: "📖", accent: "#4a7c59", bg: "#eaf3ec" },
+         "autobiography app"    => { icon: "✍️",  accent: "#7c4a1e", bg: "#f5ede3" },
+         "term deposit tracker" => { icon: "💰", accent: "#2a5c8a", bg: "#e3eef7" }
+       } %>
+    <% @products.each do |product| %>
+      <% display_name = product.name.to_s.tr("_", " ").titleize %>
+      <% display_name = "Diary App" if display_name.casecmp("My Diary App").zero? %>
+      <% app_url = product_urls[display_name.downcase] %>
+      <% product_path = "/products/#{product.slug}" %>
+      <% excerpt = truncate(strip_tags(product.description.to_s), length: 180, separator: " ") %>
+      <% pi = product_icons[display_name.downcase] || { icon: "📦", accent: "#355f2e", bg: "#eaf3ec" } %>
+      <article class="card">
+        <a href="<%= product_path %>" class="card-banner" style="background:<%= pi[:bg] %>; color:<%= pi[:accent] %>" aria-hidden="true">
+          <span class="card-banner-icon"><%= pi[:icon] %></span>
+        </a>
+        <h2>
+          <a href="<%= product_path %>"><%= display_name %></a>
+        </h2>
+        <% if product.price.present? %>
+          <div class="price"><%= number_to_currency(product.price) %></div>
+        <% end %>
+        <p class="desc"><%= excerpt %></p>
+        <a class="read-more" href="<%= product_path %>">Read more</a>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="<%= product_path %>">Buy in Store</a>
+          <% if app_url %>
+            <a class="btn btn-secondary" href="<%= app_url %>" target="_blank" rel="noopener noreferrer">App Details</a>
+          <% end %>
+        </div>
+      </article>
+    <% end %>
+
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready to Focus on Writing?</h2>
+    <p>Start with one app today and build a lasting writing system around your own voice.</p>
+    <a class="btn btn-primary" href="/products">Browse Apps</a>
+  </section>
+</section>

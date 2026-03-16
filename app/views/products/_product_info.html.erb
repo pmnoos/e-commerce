@@ -1,0 +1,7 @@
+<div class="product-description" itemprop="description">
+  <%= sanitize(
+        product_description(product),
+        tags: %w[h2 h3 h4 p ul ol li strong em b i br a],
+        attributes: %w[href title target rel]
+      ) rescue t('spree.product_has_no_description') %>
+</div>

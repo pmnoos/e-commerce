@@ -1,0 +1,65 @@
+<% @body_id = 'product-details' %>
+<%
+  product_meta_title = @product.meta_title.presence || @product.name
+  fallback_description = strip_tags(product_description(@product).to_s).squish
+  product_meta_description = @product.meta_description.presence || truncate(fallback_description, length: 160)
+  product_meta_image = "#{request.base_url}/storefront_favicon.svg"
+%>
+<% content_for :title, product_meta_title %>
+<% content_for :head do %>
+  <meta name="description" content="<%= product_meta_description %>">
+  <% if @product.meta_keywords.present? %>
+    <meta name="keywords" content="<%= @product.meta_keywords %>">
+  <% end %>
+  <meta property="og:type" content="product">
+  <meta property="og:title" content="<%= product_meta_title %>">
+  <meta property="og:description" content="<%= product_meta_description %>">
+  <meta property="og:url" content="<%= request.original_url %>">
+  <meta property="og:image" content="<%= product_meta_image %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= product_meta_title %>">
+  <meta name="twitter:description" content="<%= product_meta_description %>">
+  <meta name="twitter:image" content="<%= product_meta_image %>">
+<% end %>
+
+<% cache [I18n.locale, current_pricing_options, @product] do %>
+  <% product_has_image = @product.gallery.images.any? %>
+  <section itemscope itemtype="http://schema.org/Product">
+    <div class="wrapper grid-container py-4 lg:pb-12">
+      <% if product_has_image %>
+        <div class="col-span-full lg:col-span-8">
+          <div class="flex flex-col-reverse gap-4 overflow-auto lg:h-full lg:grid-container lg:max-h-[680px]">
+            <%= render 'product_thumbnails', product: @product %>
+            <%= render 'product_image', product: @product %>
+          </div>
+        </div>
+      <% else %>
+        <%
+          product_banners = {
+            "my-diary-app"          => { icon: "📖", label: "Diary App",             accent: "#4a7c59", bg: "#eaf3ec" },
+            "autobiography-app"     => { icon: "✍️",  label: "Autobiography App",    accent: "#7c4a1e", bg: "#f5ede3" },
+            "term-deposit-tracker"  => { icon: "💰", label: "Term Deposit Tracker",  accent: "#2a5c8a", bg: "#e3eef7" }
+          }
+          pb = product_banners[@product.slug] || { icon: "📦", label: @product.name, accent: "#355f2e", bg: "#eaf3ec" }
+        %>
+        <div class="col-span-full">
+          <div class="product-hero-banner" style="background:<%= pb[:bg] %>">
+            <span class="product-hero-icon"><%= pb[:icon] %></span>
+            <p class="product-hero-label" style="color:<%= pb[:accent] %>"><%= pb[:label] %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="flex flex-col col-span-full gap-y-8 <%= product_has_image ? 'lg:col-span-4 lg:gap-y-16' : 'lg:col-span-10 lg:col-start-2 lg:gap-y-10 product-details-wide' %>">
+        <%= render 'product_header', product: @product %>
+        <%= render 'product_promotions', product: @product %>
+        <%= render 'cart_line_items/form', product: @product %>
+        <%= render 'product_info', product: @product %>
+      </div>
+    </div>
+
+    <div class="col-span-full pt-12">
+      <%= render partial: 'home/collection', :locals => { :title => "You May Also Like", :products => @similar_products } %>
+    </div>
+  </section>
+<% end %>

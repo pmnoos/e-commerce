@@ -1,0 +1,16 @@
+<div class="col-span-full md:col-span-9">
+  <% main_image = product.gallery.images.first %>
+  <picture class="flex justify-center items-center bg-gray-50 w-full h-full rounded-lg md:rounded-xl lg:rounded-2xl aspect-square">
+    <% if main_image.present? %>
+      <%= render(ImageComponent.new(
+        image: main_image,
+        size: :product,
+        itemprop: "image",
+        data: { js: 'product-main-image' },
+        class: 'object-contain'
+      )) %>
+    <% else %>
+      <p class="product-image-empty">No preview image available for this digital product.</p>
+    <% end %>
+  </picture>
+</div>
