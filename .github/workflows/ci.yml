@@ -75,7 +75,21 @@ jobs:
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config postgresql-client
+
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Wait for PostgreSQL
+        env:
+          PGPASSWORD: postgres
+        run: |
+          for i in {1..30}; do
+            pg_isready -h 127.0.0.1 -p 5432 -U postgres && exit 0
+            sleep 2
+          done
+          echo "PostgreSQL did not become ready in time"
+          exit 1
 
       - name: Checkout code
         uses: actions/checkout@v4
