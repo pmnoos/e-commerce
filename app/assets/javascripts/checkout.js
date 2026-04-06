@@ -3,6 +3,8 @@
 
 Solidus.disableSaveOnClick = () => {
   const form = document.querySelector('form.edit_order');
+  if (!form) return;
+
   form.addEventListener('submit', () => {
     const elements = form.querySelectorAll('[type="submit"], [type="image"]');
     elements.forEach(element => {

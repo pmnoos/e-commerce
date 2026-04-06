@@ -36,7 +36,7 @@ class CheckoutsController < CheckoutBaseController
   private
 
   def update_order
-    Spree::OrderUpdateAttributes.new(@order, update_params, request_env: request.headers.env).apply
+    Spree::OrderUpdateAttributes.new(@order, update_params, request_env: request.env).apply
   end
 
   def assign_temp_address
@@ -71,7 +71,7 @@ class CheckoutsController < CheckoutBaseController
     return unless @order.payment_required?
     return unless @order.payments.valid.empty?
 
-    method = @order.available_payment_methods.first
+    method = preferred_payment_method
     return unless method
 
     payment = @order.payments.build(
@@ -115,7 +115,7 @@ class CheckoutsController < CheckoutBaseController
       order_payment_params = massaged_params[:order].presence || ActionController::Parameters.new
 
       if order_payment_params[:wallet_payment_source_id].blank? && order_payment_params[:payments_attributes].blank?
-        first_method = @order.available_payment_methods.first
+        first_method = preferred_payment_method
         if first_method
           order_payment_params[:payments_attributes] = [
             { payment_method_id: first_method.id }
@@ -197,6 +197,12 @@ class CheckoutsController < CheckoutBaseController
       @default_wallet_payment_source = @wallet_payment_sources.detect(&:default) ||
                                        @wallet_payment_sources.first
     end
+  end
+
+  def preferred_payment_method
+    @order.available_payment_methods.find do |payment_method|
+      payment_method.type == "SolidusPaypalCommercePlatform::PaymentMethod"
+    end || @order.available_payment_methods.first
   end
 
   def order_params

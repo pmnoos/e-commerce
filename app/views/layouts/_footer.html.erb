@@ -1,8 +1,18 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <span>&copy; <%= Time.current.year %> Digital Apps Store. All rights reserved.</span>
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <span>&copy; <%= Time.current.year %> Digital Apps Store. All rights reserved.</span>
+      <%= link_to "Privacy", privacy_path, class: "text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" %>
+      <%= link_to "Terms", terms_path, class: "text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" %>
+      <%= link_to "Refunds", refunds_path, class: "text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" %>
+      <%= link_to "Contact", contact_path, class: "text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white" %>
+      <%= link_to "https://solidus.io", class: "text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white", target: "_blank", rel: "noopener noreferrer" do %>
+        Built with Solidus
+      <% end %>
+    </div>
     <%
-      available_locales = current_store.available_locales.map do |locale|
+      store = (defined?(current_store) && current_store) || (defined?(Spree::Store) ? Spree::Store.default : nil)
+      available_locales = Array(store&.available_locales).map do |locale|
         [
           I18n.t('spree.i18n.this_file_language',
           locale: locale,

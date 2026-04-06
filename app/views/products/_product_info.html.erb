@@ -4,4 +4,8 @@
         tags: %w[h2 h3 h4 p ul ol li strong em b i br a],
         attributes: %w[href title target rel]
       ) rescue t('spree.product_has_no_description') %>
+
+  <% if product.name.to_s.downcase.in?(["diary app", "my diary app"]) %>
+    <p>Includes Events &amp; Reminders so you can plan upcoming moments and get timely prompts.</p>
+  <% end %>
 </div>

@@ -9,7 +9,7 @@ services:
     plan: free
     autoDeploy: true
     buildCommand: bundle install && bundle exec rails assets:precompile
-    preDeployCommand: bundle exec rails db:migrate
+    preDeployCommand: bundle exec rails db:migrate && bundle exec rails paypal:setup
     startCommand: bundle exec puma -C config/puma.rb
     healthCheckPath: /
     envVars:
@@ -31,3 +31,10 @@ services:
         generateValue: true
       - key: RAILS_MASTER_KEY
         sync: false
+      - key: PAYPAL_CLIENT_ID
+        sync: false
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false
+      - key: PAYPAL_SANDBOX
+        value: "true"
+

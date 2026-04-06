@@ -1,23 +1,42 @@
 <% if products.length > 0 %>
+  <% compact_layout = local_assigns.fetch(:compact_layout, false) %>
+  <% placeholders_needed = compact_layout ? [4 - products.size, 0].max : 0 %>
   <section class="wrapper mb-12">
     <div class="flex items-center justify-between mb-7">
       <span class="font-serif text-h4 md:text-h3"><%= title %></span>
       <%= render "shared/call_to_action", { label: "Shop All", type: 'secondary', url: products_path } %>
     </div>
 
-    <% mobile_classes = 'grid grid-cols-2 gap-4' %>
-    <% desktop_classes = 'md:gap-0 md:flex md:snap-x md:justify-between md:snap-mandatory md:overflow-x-auto md:space-x-6' %>
+    <% mobile_classes = compact_layout ? 'grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4' : 'grid grid-cols-2 gap-4' %>
+    <% desktop_classes = compact_layout ? '' : 'md:gap-0 md:flex md:snap-x md:justify-between md:snap-mandatory md:overflow-x-auto md:space-x-6' %>
 
-    <ul class="<%= mobile_classes %> <%= desktop_classes %> no-scrollbar">
+    <ul class="<%= mobile_classes %> <%= desktop_classes %> <%= 'product-recommendations-grid' if compact_layout %> no-scrollbar">
       <% products.each do |product| %>
         <%= cache [I18n.locale, current_pricing_options, @taxon, product] do %>
           <%= render ProductCardComponent.new(
             product,
             price: product.price_for_options(current_pricing_options),
-            additional_classes: 'snap-start shrink-0 md:w-collection-card h-min-content',
-            home_collection: true
+            additional_classes: compact_layout ? 'h-min-content' : 'snap-start shrink-0 md:w-collection-card h-min-content',
+            home_collection: true,
+            compact: compact_layout
           ) %>
         <% end %>
+      <% end %>
+
+      <% placeholders_needed.times do %>
+        <li class="product-card-item product-card-item--compact product-card-placeholder rounded-lg md:rounded-xl lg:rounded-2xl">
+          <article class="h-full flex flex-col justify-between p-3 md:p-4">
+            <div>
+              <p class="product-card-placeholder-kicker">Coming Soon</p>
+              <h3 class="product-card-placeholder-title">More practical apps are on the way</h3>
+              <p class="product-card-placeholder-copy">Browse the current collection while new tools are being added.</p>
+            </div>
+
+            <div class="mt-4">
+              <%= link_to 'Shop All', products_path, class: 'product-card-placeholder-link' %>
+            </div>
+          </article>
+        </li>
       <% end %>
     </ul>
   </section>

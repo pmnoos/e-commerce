@@ -1,5 +1,7 @@
 <div class="col-span-full md:col-span-9">
   <% main_image = product.gallery.images.first %>
+  <% screenshot_assets = local_assigns.fetch(:screenshot_assets, []) %>
+  <% main_screenshot_asset = screenshot_assets.first %>
   <picture class="flex justify-center items-center bg-gray-50 w-full h-full rounded-lg md:rounded-xl lg:rounded-2xl aspect-square">
     <% if main_image.present? %>
       <%= render(ImageComponent.new(
@@ -9,6 +11,14 @@
         data: { js: 'product-main-image' },
         class: 'object-contain'
       )) %>
+    <% elsif main_screenshot_asset.present? %>
+      <%= image_tag(
+        main_screenshot_asset,
+        alt: "#{product.name} screenshot",
+        data: { js: 'product-main-image' },
+        class: 'object-contain max-h-full rounded-lg md:rounded-xl lg:rounded-2xl',
+        loading: 'lazy'
+      ) %>
     <% else %>
       <p class="product-image-empty">No preview image available for this digital product.</p>
     <% end %>

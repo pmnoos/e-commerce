@@ -99,9 +99,11 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     const orderUseBilling = document.getElementById('order_use_billing');
-    orderUseBilling.addEventListener('change', function() {
-      update_shipping_form_state(orderUseBilling);
-    });
+    if (orderUseBilling) {
+      orderUseBilling.addEventListener('change', function() {
+        update_shipping_form_state(orderUseBilling);
+      });
+    }
 
     function update_shipping_form_state(order_use_billing) {
       const addressInputs = document.querySelectorAll('#shipping .address-inputs');
@@ -119,6 +121,8 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    update_shipping_form_state(orderUseBilling);
+    if (orderUseBilling) {
+      update_shipping_form_state(orderUseBilling);
+    }
   }
 });

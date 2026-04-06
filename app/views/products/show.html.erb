@@ -20,17 +20,37 @@
   <meta name="twitter:title" content="<%= product_meta_title %>">
   <meta name="twitter:description" content="<%= product_meta_description %>">
   <meta name="twitter:image" content="<%= product_meta_image %>">
+  <% product_json_ld = {
+       "@context" => "https://schema.org",
+       "@type" => "Product",
+       "name" => product_meta_title,
+       "description" => product_meta_description,
+       "url" => request.original_url,
+       "image" => [ product_meta_image ],
+       "sku" => @product.master&.sku
+     } %>
+  <% if @product.price.present? %>
+    <% product_json_ld["offers"] = {
+         "@type" => "Offer",
+         "url" => request.original_url,
+          "priceCurrency" => current_pricing_options.currency,
+         "price" => @product.price.to_s,
+          "availability" => (@product.master&.can_supply? ? "https://schema.org/InStock" : "https://schema.org/OutOfStock")
+       } %>
+  <% end %>
+  <script type="application/ld+json"><%= raw(product_json_ld.to_json) %></script>
 <% end %>
 
 <% cache [I18n.locale, current_pricing_options, @product] do %>
-  <% product_has_image = @product.gallery.images.any? %>
+  <% local_screenshot_assets = screenshot_assets_for(@product) %>
+  <% product_has_image = @product.gallery.images.any? || local_screenshot_assets.any? %>
   <section itemscope itemtype="http://schema.org/Product">
     <div class="wrapper grid-container py-4 lg:pb-12">
       <% if product_has_image %>
         <div class="col-span-full lg:col-span-8">
           <div class="flex flex-col-reverse gap-4 overflow-auto lg:h-full lg:grid-container lg:max-h-[680px]">
-            <%= render 'product_thumbnails', product: @product %>
-            <%= render 'product_image', product: @product %>
+            <%= render 'product_thumbnails', product: @product, screenshot_assets: local_screenshot_assets %>
+            <%= render 'product_image', product: @product, screenshot_assets: local_screenshot_assets %>
           </div>
         </div>
       <% else %>
@@ -38,7 +58,8 @@
           product_banners = {
             "my-diary-app"          => { icon: "📖", label: "Diary App",             accent: "#4a7c59", bg: "#eaf3ec" },
             "autobiography-app"     => { icon: "✍️",  label: "Autobiography App",    accent: "#7c4a1e", bg: "#f5ede3" },
-            "term-deposit-tracker"  => { icon: "💰", label: "Term Deposit Tracker",  accent: "#2a5c8a", bg: "#e3eef7" }
+            "term-deposit-tracker"  => { icon: "💰", label: "Term Deposit Tracker",  accent: "#2a5c8a", bg: "#e3eef7" },
+            "grocery-expense-tracker" => { icon: "🛒", label: "Food Track App", accent: "#8a5a2a", bg: "#f6ede2" }
           }
           pb = product_banners[@product.slug] || { icon: "📦", label: @product.name, accent: "#355f2e", bg: "#eaf3ec" }
         %>
@@ -59,7 +80,7 @@
     </div>
 
     <div class="col-span-full pt-12">
-      <%= render partial: 'home/collection', :locals => { :title => "You May Also Like", :products => @similar_products } %>
+      <%= render partial: 'home/collection', :locals => { :title => "You May Also Like", :products => @similar_products, :compact_layout => true } %>
     </div>
   </section>
 <% end %>

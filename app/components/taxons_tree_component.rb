@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TaxonsTreeComponent < ViewComponent::Base
-  attr_reader :root_taxon, :title, :current_taxon, :max_level, :item_classes, :current_item_classes, :title_classes
+  attr_reader :root_taxon, :title, :current_taxon, :max_level, :item_classes, :current_item_classes, :title_classes, :extra_items
 
   def initialize(
     root_taxon:,
@@ -10,7 +10,8 @@ class TaxonsTreeComponent < ViewComponent::Base
     max_level: 1,
     item_classes: nil,
     current_item_classes: "underline",
-    title_classes: nil
+    title_classes: nil,
+    extra_items: []
   )
     @root_taxon = root_taxon
     @title = title
@@ -19,6 +20,7 @@ class TaxonsTreeComponent < ViewComponent::Base
     @item_classes = item_classes
     @current_item_classes = current_item_classes
     @title_classes = title_classes
+    @extra_items = extra_items
   end
 
   def call
@@ -44,7 +46,7 @@ class TaxonsTreeComponent < ViewComponent::Base
     content_tag(:h6, title, class: title_classes) if title
   end
 
-  def tree(root_taxon:, item_classes:, current_item_classes:, max_level:)
+  def tree(root_taxon:, item_classes:, current_item_classes:, max_level:, depth: 1)
     return if max_level < 1 || root_taxon.children.empty?
 
     content_tag :ul do
@@ -54,11 +56,20 @@ class TaxonsTreeComponent < ViewComponent::Base
 
         content_tag :li, class: classes do
           link_to(taxon.name, helpers.taxon_seo_url(taxon)) +
-            tree(root_taxon: taxon, item_classes: item_classes, current_item_classes: current_item_classes, max_level: max_level - 1)
+            tree(root_taxon: taxon, item_classes: item_classes, current_item_classes: current_item_classes, max_level: max_level - 1, depth: depth + 1)
         end
       end
 
-      safe_join([ taxons ], "\n")
+      extra = []
+      if depth == 1 && extra_items.present?
+        extra = extra_items.map do |item|
+          content_tag :li, class: item_classes do
+            link_to(item[:name], item[:url], target: item[:target], rel: item[:rel])
+          end
+        end
+      end
+
+      safe_join(taxons + extra, "\n")
     end
   end
 end

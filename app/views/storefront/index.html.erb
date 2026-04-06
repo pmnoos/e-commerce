@@ -1,13 +1,13 @@
 <%
-  home_meta_title = "Digital Apps Store | Diary, Autobiography & Term Deposit"
-  home_meta_description = "Explore premium digital apps for private journaling, autobiography writing, and term deposit tracking. Buy in-store and start using them today."
+  home_meta_title = "Digital Apps Store | Food Track, Diary, Autobiography & Term Deposit"
+  home_meta_description = "Discover practical digital apps, including Food Track for grocery spend analysis, plus diary writing, autobiography planning, and term tracking tools."
   home_meta_image = "#{request.base_url}/storefront_favicon.svg"
 %>
 <% content_for :title, home_meta_title %>
 
 <% content_for :head do %>
   <meta name="description" content="<%= home_meta_description %>">
-  <meta name="keywords" content="digital apps store, diary app, autobiography app, term deposit tracker, journaling app, memoir app, savings tracker">
+  <meta name="keywords" content="digital apps store, food track app, grocery expense tracker, price history app, spending reports, diary app, autobiography app, term deposit tracker">
   <meta property="og:type" content="website">
   <meta property="og:title" content="<%= home_meta_title %>">
   <meta property="og:description" content="<%= home_meta_description %>">
@@ -24,15 +24,16 @@
 
 <section class="storefront-page">
   <% admin_user = spree_current_user&.has_spree_role?("admin") %>
+  <% admin_link = admin_user ? "/admin" : switch_admin_login_path %>
 
   <section class="hero-shell">
     <div class="hero-content">
       <span class="pill">Digital Product Store</span>
-      <h1>Your Journals. Your Story. All in One Place.</h1>
-      <p>Build your writing practice with focused digital tools for diaries and autobiographical work. Track progress, keep your ideas structured, and publish your next chapter with confidence.</p>
+      <h1>Your Apps. Your Workflow.<br/> All in One Place.</h1>
+      <p>Use focused tools for writing, savings tracking, and grocery cost control. Food Track helps you log purchases, analyze price changes, and understand weekly, monthly, and yearly spend.</p>
       <div class="actions">
         <a class="btn btn-primary" href="#catalog">Get Started</a>
-        <a class="btn btn-secondary" href="/admin">Admin</a>
+        <a class="btn btn-secondary" href="<%= admin_link %>">Admin</a>
       </div>
     </div>
     <div class="hero-panel" aria-hidden="true">
@@ -42,7 +43,7 @@
       </div>
       <div class="stat-card">
         <h3>Focus</h3>
-        <p>Autobiography-App<br/> Diary-App <br/>Term Deposit Tracker</p>
+        <p>Food Track App<br/> Diary App<br/> Autobiography App<br/> Term Deposit Tracker</p>
       </div>
     </div>
   </section>
@@ -66,24 +67,41 @@
       <article class="portal-card <%= admin_user ? "portal-card-admin" : "" %>">
         <h3>Admin Portal</h3>
         <p><%= admin_user ? "Add or edit products, manage pricing, and review orders in the dashboard." : "Admin tools for catalog and order management." %></p>
-        <a class="btn <%= admin_user ? "btn-primary" : "btn-secondary" %>" href="<%= admin_user ? "/admin" : "/admin/login" %>"><%= admin_user ? "Open Admin Dashboard" : "Admin Login" %></a>
+        <a class="btn <%= admin_user ? "btn-primary" : "btn-secondary" %>" href="<%= admin_link %>"><%= admin_user ? "Open Admin Dashboard" : "Admin Login" %></a>
       </article>
     </div>
   </section>
 
+  <% app_cards = [
+       {
+         title: "Diary App",
+         description: "Keep private daily entries, track important moments, and stay organised with reminders and upcoming events.",
+         slug: "my-diary-app"
+       },
+       {
+         title: "Autobiography App",
+         description: "Shape life stories into structured chapters, organise memories, and build a long-form personal narrative with clarity.",
+         slug: "autobiography-app"
+       },
+       {
+         title: "Term Deposit Tracker",
+         description: "Monitor deposits, interest rates, maturity dates, and savings performance in one focused financial tool.",
+         slug: "term-deposit-tracker"
+       },
+       {
+         title: "Food Track App",
+         description: "Log grocery purchases, compare stores, analyse price history, and review spending trends across your household budget.",
+         slug: "grocery-expense-tracker"
+       }
+     ] %>
+
   <section class="info-grid">
-    <article class="info-card">
-      <h3>Structured Writing</h3>
-      <p>Create entries with a clear timeline and revisit your notes without searching through clutter.</p>
-    </article>
-    <article class="info-card">
-      <h3>Progress Visibility</h3>
-      <p>Keep momentum with a practical overview of your drafts, sessions, and long-term writing goals.</p>
-    </article>
-    <article class="info-card">
-      <h3>Anywhere Access</h3>
-      <p>Open your writing workflow from any browser and continue your work where you left off.</p>
-    </article>
+    <% app_cards.each do |card| %>
+      <a class="info-card block" href="/products/<%= card[:slug] %>">
+        <h3><%= card[:title] %></h3>
+        <p><%= card[:description] %></p>
+      </a>
+    <% end %>
   </section>
 
   <section class="steps" aria-label="How it works">
@@ -112,21 +130,25 @@
     "my diary app" => "https://pmnoos.github.io/diary_app-landing/",
     "diary app" => "https://pmnoos.github.io/diary_app-landing/",
     "term tracker" => "https://pmnoos.github.io/term-tracker/",
-    "term deposit tracker" => "https://pmnoos.github.io/term-tracker/"
+    "term deposit tracker" => "https://pmnoos.github.io/term-tracker/",
+    "grocery expense tracker" => "https://pmnoos.github.io/food-costs/",
+    "food track app" => "https://pmnoos.github.io/food-costs/"
   } %>
 
 
   <section id="catalog" class="catalog-wrap">
     <div class="section-head">
       <h2>Everything You Need</h2>
-      <p>Explore the currently available apps in your digital writing toolkit.</p>
+      <p>Explore practical apps for writing, budgeting, and everyday planning.</p>
+      <p>Food Track includes store management, purchase logging, spending reports, price history, recipe tracking, and menu planning.</p>
     </div>
 
     <div class="catalog">
     <% product_icons = {
-         "diary app"            => { icon: "📖", accent: "#4a7c59", bg: "#eaf3ec" },
-         "autobiography app"    => { icon: "✍️",  accent: "#7c4a1e", bg: "#f5ede3" },
-         "term deposit tracker" => { icon: "💰", accent: "#2a5c8a", bg: "#e3eef7" }
+          "diary app"               => { icon: "📖", accent: "#4a7c59", bg: "#eaf3ec" },
+          "autobiography app"       => { icon: "✍️",  accent: "#7c4a1e", bg: "#f5ede3" },
+          "term deposit tracker"    => { icon: "💰", accent: "#2a5c8a", bg: "#e3eef7" },
+          "grocery expense tracker" => { icon: "🛒", accent: "#8a5a2a", bg: "#f6ede2" }
        } %>
     <% @products.each do |product| %>
       <% display_name = product.name.to_s.tr("_", " ").titleize %>

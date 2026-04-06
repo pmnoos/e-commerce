@@ -2,10 +2,10 @@
 <html lang="<%= I18n.locale %>">
   <head>
     <meta charset="utf-8">
-    <title><%= title %></title>
+    <title><%= content_for?(:title) ? yield(:title) : (defined?(current_store) && current_store ? current_store.name : "Digital Apps Store") %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%== meta_data_tags %>
-    <%= simple_canonical_tag %>
+    <%== meta_data_tags if respond_to?(:meta_data_tags) %>
+    <%= simple_canonical_tag if respond_to?(:simple_canonical_tag) && defined?(current_store) %>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
@@ -26,7 +26,7 @@
     <%= yield :head %>
   </head>
 
-  <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-turbo="false"  data-controller="drawer">
+  <body class="<%= respond_to?(:body_class) ? body_class : nil %>" id="<%= @body_id || 'default' %>" data-turbo="false"  data-controller="drawer">
     <div class="min-h-screen grid grid-rows-[auto_1fr_auto]">
       <%= render 'layouts/header', taxons: @taxons, taxon: @taxon %>
       <main>
@@ -38,7 +38,7 @@
           wrapper_classes: 'wrapper mt-4',
           order: @order
         ) %>
-        <% if flash_messages.present? %>
+        <% if respond_to?(:flash_messages) && flash_messages.present? %>
           <%= flash_messages %>
         <% end %>
         <%= yield %>

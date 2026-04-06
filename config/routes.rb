@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   # Public storefront landing page.
   root to: "storefront#index"
   get "store" => "storefront#index"
+  get "privacy" => "pages#privacy", as: :privacy
+  get "terms" => "pages#terms", as: :terms
+  get "refunds" => "pages#refunds", as: :refunds
+  get "contact" => "pages#contact", as: :contact
+  get "admin/switch-login" => "storefront#admin_login", as: :switch_admin_login
+  get "sitemap.xml" => "sitemaps#index", defaults: { format: :xml }
 
   devise_for(:user, {
     class_name: "Spree::User",
@@ -51,6 +57,7 @@ Rails.application.routes.draw do
   resource :checkout_session, only: :new
   resource :checkout_guest_session, only: :create
   patch "/checkout/update/:state", to: "checkouts#update", as: :update_checkout
+  get "/checkout/update/:state", to: redirect("/checkout/%{state}")
   get "/checkout/:state", to: "checkouts#edit", as: :checkout_state
   get "/checkout", to: "checkouts#edit", as: :checkout
 

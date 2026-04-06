@@ -1,4 +1,4 @@
-<%= form_for order, url: update_checkout_path(order.state), html: { id: "checkout_form_#{order.state}" } do |form| %>
+<%= form_for order, url: update_checkout_path(order.state), method: :patch, html: { id: "checkout_form_#{order.state}" } do |form| %>
   <% if order.state.in?(["payment", "confirm"]) %>
     <div class="digital-delivery-note" role="note" aria-label="Digital delivery notice">
       <strong>Digital delivery:</strong> No shipping is required for these products. Access is provided instantly after successful payment.

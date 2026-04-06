@@ -1,31 +1,36 @@
 <%
   title_text_classes = 'text-body-20 md:text-body'
+  title_text_classes = 'text-sm md:text-base' if @compact
    
   price_classes = 
     @home_collection ? 
       'text-body-xs lg:text-body lg:ml-4 lg:pb-[2px]' :
       'ml-4 text-body md:text-body-sm lg:text-body pb-[4px] md:pb-[2px] xl:pb-[4px]'
+  price_classes = 'mt-1 text-sm md:text-base' if @compact
   
   text_flex_classes = 
     @home_collection ?
       'lg:flex justify-between items-end' :
       'flex justify-between items-end'
+  text_flex_classes = 'flex flex-col gap-2' if @compact
   
   padding_classes = 
     @home_collection ?
       'p-3 md:p-6' :
       'p-6'
+  padding_classes = 'p-3 md:p-4' if @compact
 %>
 
 <%
   product_theme = {
     "diary_app"            => { icon: "📖", accent: "#4a7c59", bg: "#eaf3ec" },
     "autobiography-app"    => { icon: "✍️",  accent: "#7c4a1e", bg: "#f5ede3" },
-    "term-deposit-tracker" => { icon: "💰", accent: "#2a5c8a", bg: "#e3eef7" }
+    "term-deposit-tracker" => { icon: "💰", accent: "#2a5c8a", bg: "#e3eef7" },
+    "grocery-expense-tracker" => { icon: "🛒", accent: "#8a5a2a", bg: "#f6ede2" }
   }[product.slug] || { icon: "📦", accent: "#355f2e", bg: "#eaf3ec" }
 %>
 <li 
-  class="product-card-item w-full rounded-lg md:rounded-xl lg:rounded-2xl  <%= additional_classes %>"
+  class="product-card-item w-full rounded-lg md:rounded-xl lg:rounded-2xl <%= 'product-card-item--compact' if @compact %> <%= additional_classes %>"
   style="background:<%= product_theme[:bg] %>; border: 1px solid rgba(0,0,0,0.07);"
   itemscope
   itemtype="http://schema.org/Product"
@@ -42,6 +47,13 @@
               itemprop: "image",
               classes: 'h-0 min-h-full mx-auto object-contain'
             )
+          ) %>
+        <% elsif screenshot_asset.present? %>
+          <%= image_tag(
+            screenshot_asset,
+            class: 'h-0 min-h-full mx-auto object-contain rounded-md',
+            alt: "#{product.name} screenshot",
+            loading: 'lazy'
           ) %>
         <% else %>
           <div class="product-card-icon-wrap" aria-hidden="true">

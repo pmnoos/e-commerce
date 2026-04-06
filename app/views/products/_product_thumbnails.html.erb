@@ -1,4 +1,5 @@
 <% thumbnails_class = "flex shrink-0 w-1_col-3 justify-center items-center snap-center bg-gray-50 rounded-lg p-4 aspect-square transition-colors duration-150 hover:bg-gray-100 md:rounded-xl lg:rounded-2xl lg:w-full" %>
+<% screenshot_assets = local_assigns.fetch(:screenshot_assets, []) %>
 
 <div class="col-span-full no-scrollbar lg:col-span-3 lg:overflow-auto">
   <ul class="flex flex-nowrap overflow-x-auto no-scrollbar snap-x gap-4 lg:overflow-y-auto lg:snap-y lg:flex-col">
@@ -12,6 +13,16 @@
         ) do %>
           <%= link_to image.url(:product), class: thumbnails_class do %>
             <%= image_tag(image.url(:small))  %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if product.gallery.images.empty? %>
+      <% screenshot_assets.each_with_index do |screenshot_asset, index| %>
+        <%= content_tag(:li, data: { js: 'product-thumbnail', js_id: "screenshot-#{index}" }) do %>
+          <%= link_to image_path(screenshot_asset), class: thumbnails_class do %>
+            <%= image_tag(screenshot_asset, alt: "#{product.name} screenshot", loading: 'lazy') %>
           <% end %>
         <% end %>
       <% end %>
