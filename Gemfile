@@ -64,7 +64,7 @@ end
 
 gem "solidus", "~> 4.6"
 
-gem "solidus_auth_devise", "~> 2.5"
+gem "solidus_auth_devise", "~> 2.6"
 gem "responders"
 gem "solidus_support", ">= 0.12.0"
 gem "view_component", "~> 3.0"
