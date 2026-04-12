@@ -21,37 +21,37 @@ download_url_property = Spree::Property.find_or_create_by!(name: "Download URL",
 [
   {
     slug: "my-diary-app",
-    name: "My Diary App",
+    name: "Diary App",
     description: <<~DESC,
-      <h2>Your Private Space to Think, Reflect and Grow</h2>
+      <h2>Your Private Space to Write and Reflect (Django Edition)</h2>
 
-      <p>Diary App is a calm, thoughtfully designed journalling tool for people who want more than a notes app. It gives you one private place to capture thoughts, moods, goals, gratitude, and everyday memories without clutter, ads, or distractions. If you want a writing habit that actually lasts, this app is built to make daily reflection feel easy to return to.</p>
+      <p>Diary App is now delivered as a Django application focused on daily writing, reminders, and simple personal organization. It gives you one private place to capture thoughts, moods, goals, gratitude, and everyday memories with a clean interface designed for consistency.</p>
 
       <h3>Key Features</h3>
       <ul>
-        <li><strong>Daily Entry Prompts</strong> — Start writing in seconds with optional prompts that reduce blank-page friction and help you stay consistent.</li>
-        <li><strong>Mood Tracker</strong> — Tag each entry with a mood so you can notice emotional patterns, triggers, and positive routines over time.</li>
-        <li><strong>Date &amp; Timeline View</strong> — Revisit your life through a clean archive that makes old entries easy to browse by day, week, or month.</li>
-        <li><strong>Tags &amp; Categories</strong> — Organise thoughts around themes like work, family, gratitude, travel, ideas, or personal growth.</li>
-        <li><strong>Rich Text &amp; Photos</strong> — Add formatting and image memories so important moments feel complete, not reduced to plain text.</li>
-        <li><strong>Streak &amp; Habit Tracking</strong> — Build momentum with gentle consistency tools that encourage reflection without turning it into pressure.</li>
-        <li><strong>Private by Design</strong> — Keep your personal writing in a space that feels owned by you rather than another social platform.</li>
-        <li><strong>Export &amp; Backup</strong> — Download your journal whenever you want so your memories stay portable and under your control.</li>
+        <li><strong>Entry Management</strong> — Create, edit, archive, and organize diary entries with a focused writing flow.</li>
+        <li><strong>Image Uploads</strong> — Attach photos to entries so key memories keep their full context.</li>
+        <li><strong>User Accounts</strong> — Sign up, sign in, and manage your personal diary space securely.</li>
+        <li><strong>Reminders</strong> — Use built-in reminder support to stay consistent with your writing routine.</li>
+        <li><strong>Subscription Features</strong> — Includes subscription components and Stripe-ready settings.</li>
+        <li><strong>PWA Support</strong> — Manifest and service worker assets are included for installable app behavior.</li>
+        <li><strong>Portable Setup</strong> — Run with SQLite locally or PostgreSQL in production via environment configuration.</li>
+        <li><strong>Open Source Delivery</strong> — Receive direct access to the Django codebase for your own deployment.</li>
       </ul>
 
       <h3>Who Is It For?</h3>
-      <p>Diary App is for anyone who wants to slow down and reflect with more intention: students navigating change, professionals clearing their heads after busy days, parents preserving family moments, or anyone building a mindfulness, gratitude, or self-awareness practice.</p>
+      <p>Diary App is for people who want a practical journalling system they can own and run themselves: students, professionals, creators, and families who value private writing and structured reflection.</p>
 
       <h3>Why Diary App?</h3>
-      <p>For a modest one-time price, Diary App gives you a focused personal writing space you can keep using for years. No social feed. No likes. No noise. Just a clean place to think clearly, remember more, and build a personal archive that becomes more valuable the longer you use it.</p>
+      <p>For a modest one-time price, you get the Django-based diary app source and can host it on your own infrastructure. No noisy feed and no lock-in, just a focused writing experience you control.</p>
 
       <p><em>Start your first entry today — the best time to begin is always now.</em></p>
     DESC
     price: 19.0,
-    download_url: "https://pmnoos.github.io/diary_app-landing/",
-    meta_title: "Diary App | Private Journal, Mood Tracking and Daily Reflection",
-    meta_keywords: "diary app, private journal, mood tracker, gratitude journal, encrypted diary, daily writing",
-    meta_description: "A private diary app for daily reflection, mood tracking, prompts, photos, and reminders. One-time purchase with no subscription."
+    download_url: "https://github.com/pmnoos/diary_app",
+    meta_title: "Diary App (Django) | Private Journal, Reminders and Image Entries",
+    meta_keywords: "django diary app, private journal, reminders, image diary, pwa diary, daily writing",
+    meta_description: "A Django diary app with entries, reminders, image uploads, authentication, and PWA support. One-time purchase with source access."
   },
   {
     slug: "autobiography-app",
