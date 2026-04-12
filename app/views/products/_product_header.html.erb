@@ -6,11 +6,12 @@
 <% display_name = product.name.to_s.tr("_", " ").titleize %>
 <% display_name = "Diary App" if display_name.casecmp("My Diary App").zero? %>
 <% product_url = product_urls[display_name.downcase] %>
+<% internal_product_link = product_url.to_s.start_with?("/") %>
 
 <header class="product-header">
   <h1 class="font-serif-md text-h4 lg:text-h3 mt-12 mb-3 lg:mt-3" itemprop="name">
     <% if product_url %>
-      <a href="<%= product_url %>" target="_blank" rel="noopener noreferrer"><%= display_name %></a>
+      <a href="<%= product_url %>" <%= internal_product_link ? "" : 'target="_blank" rel="noopener noreferrer"'.html_safe %>><%= display_name %></a>
     <% else %>
       <%= display_name %>
     <% end %>

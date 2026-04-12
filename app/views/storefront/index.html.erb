@@ -172,7 +172,8 @@
         <div class="card-actions">
           <a class="btn btn-primary" href="<%= product_path %>">Buy in Store</a>
           <% if app_url %>
-            <a class="btn btn-secondary" href="<%= app_url %>" target="_blank" rel="noopener noreferrer">App Details</a>
+            <% internal_details_link = app_url.to_s.start_with?("/") %>
+            <a class="btn btn-secondary" href="<%= app_url %>" <%= internal_details_link ? "" : 'target="_blank" rel="noopener noreferrer"'.html_safe %>>App Details</a>
           <% end %>
         </div>
       </article>
