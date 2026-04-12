@@ -1,0 +1,87 @@
+<%
+  page_title = "Django Diary App | Private Writing, Reminders, and PWA"
+  page_description = "A Django-powered diary app with private entries, image uploads, reminders, account auth, and installable PWA support."
+  page_image = "#{request.base_url}/storefront_favicon.svg"
+%>
+<% content_for :title, page_title %>
+
+<% content_for :head do %>
+  <meta name="description" content="<%= page_description %>">
+  <meta name="keywords" content="django diary app, private journal, reminders, image uploads, pwa diary app">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="<%= page_title %>">
+  <meta property="og:description" content="<%= page_description %>">
+  <meta property="og:url" content="<%= request.original_url %>">
+  <meta property="og:image" content="<%= page_image %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= page_title %>">
+  <meta name="twitter:description" content="<%= page_description %>">
+  <meta name="twitter:image" content="<%= page_image %>">
+<% end %>
+
+<section class="django-diary-page wrapper py-8">
+  <header class="django-hero">
+    <div class="django-hero-copy">
+      <p class="django-kicker">Django Edition</p>
+      <h1>Diary App for people who want clarity, privacy, and consistency.</h1>
+      <p class="django-subtitle">Write daily entries, attach images, set reminders, and keep your journal in a tool you can deploy and control.</p>
+      <div class="django-actions">
+        <a class="btn btn-primary" href="/products/my-diary-app">Buy in Store</a>
+        <a class="btn btn-secondary" href="https://github.com/pmnoos/diary_app" target="_blank" rel="noopener noreferrer">View Django Repo</a>
+      </div>
+    </div>
+    <aside class="django-hero-panel" aria-label="Core highlights">
+      <div>
+        <h2>Stack</h2>
+        <p>Python 3.13+, Django 5.2</p>
+      </div>
+      <div>
+        <h2>Data</h2>
+        <p>SQLite local, PostgreSQL ready</p>
+      </div>
+      <div>
+        <h2>Delivery</h2>
+        <p>One-time purchase with source access</p>
+      </div>
+    </aside>
+  </header>
+
+  <section class="django-feature-grid" aria-label="Key features">
+    <article class="django-feature">
+      <h2>Focused Entry Flow</h2>
+      <p>Create, edit, and archive entries with a writing-first structure that keeps your routine simple.</p>
+    </article>
+    <article class="django-feature">
+      <h2>Image Memories</h2>
+      <p>Attach photos to entries so important moments preserve context beyond plain text.</p>
+    </article>
+    <article class="django-feature">
+      <h2>Reminder Support</h2>
+      <p>Use reminder tools to stay consistent and maintain momentum in your daily writing habit.</p>
+    </article>
+    <article class="django-feature">
+      <h2>Installable PWA</h2>
+      <p>Manifest and service-worker support enable an app-like experience across devices.</p>
+    </article>
+  </section>
+
+  <section class="django-compare" aria-label="Why this version">
+    <h2>Why this Django version?</h2>
+    <p>This release replaces the old Rails diary build. The Django implementation is cleaner to deploy, easier to maintain, and aligned with your current product direction.</p>
+    <ul>
+      <li>Authentication with sign up, login, and user session flows</li>
+      <li>Reminders and subscription-ready components</li>
+      <li>Static/media handling designed for practical deployment</li>
+      <li>Configurable environment variables for production</li>
+    </ul>
+  </section>
+
+  <section class="django-cta">
+    <h2>Start with the Django diary app today</h2>
+    <p>Buy in the store for delivery, then use the repository and setup guide to run your own instance.</p>
+    <div class="django-actions">
+      <a class="btn btn-primary" href="/products/my-diary-app">Open Product Page</a>
+      <a class="btn btn-secondary" href="/store">Back to Store</a>
+    </div>
+  </section>
+</section>

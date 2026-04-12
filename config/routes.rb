@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # Public storefront landing page.
   root to: "storefront#index"
   get "store" => "storefront#index"
+  get "apps/django-diary" => "pages#django_diary", as: :django_diary_landing
   get "privacy" => "pages#privacy", as: :privacy
   get "terms" => "pages#terms", as: :terms
   get "refunds" => "pages#refunds", as: :refunds

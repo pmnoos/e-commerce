@@ -1,7 +1,7 @@
 <% product_urls = {
   "autobiography app" => "https://www.autobiography.live",
-  "my diary app" => "https://github.com/pmnoos/diary_app",
-  "diary app" => "https://github.com/pmnoos/diary_app"
+  "my diary app" => django_diary_landing_path,
+  "diary app" => django_diary_landing_path
 } %>
 <% display_name = product.name.to_s.tr("_", " ").titleize %>
 <% display_name = "Diary App" if display_name.casecmp("My Diary App").zero? %>
