@@ -1,0 +1,29 @@
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #191511;">
+  <div style="background: #355f2e; padding: 20px 24px; border-radius: 12px 12px 0 0;">
+    <h1 style="margin: 0; color: #ffffff; font-size: 1.2rem;">New Contact Message</h1>
+    <p style="margin: 4px 0 0; color: #c8e6c9; font-size: 0.85rem;">Digital Apps Store</p>
+  </div>
+
+  <div style="background: #ffffff; padding: 24px; border: 1px solid #decfb8; border-top: none; border-radius: 0 0 12px 12px;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+      <tr>
+        <td style="padding: 8px 0; color: #5b534a; width: 100px; font-weight: bold;">Name</td>
+        <td style="padding: 8px 0;"><%= @name %></td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #5b534a; font-weight: bold;">Email</td>
+        <td style="padding: 8px 0;">
+          <a href="mailto:<%= @email %>" style="color: #355f2e;"><%= @email %></a>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #5b534a; font-weight: bold; vertical-align: top;">Message</td>
+        <td style="padding: 8px 0; white-space: pre-wrap;"><%= @message %></td>
+      </tr>
+    </table>
+
+    <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #decfb8; font-size: 0.8rem; color: #5b534a;">
+      Reply directly to this email to respond to <%= @name %>.
+    </div>
+  </div>
+</div>

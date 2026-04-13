@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get "privacy" => "pages#privacy", as: :privacy
   get "terms" => "pages#terms", as: :terms
   get "refunds" => "pages#refunds", as: :refunds
-  get "contact" => "pages#contact", as: :contact
+  get  "contact" => "pages#contact",        as: :contact
+  post "contact" => "pages#contact_submit", as: :contact_submit
   get "admin/switch-login" => "storefront#admin_login", as: :switch_admin_login
   get "sitemap.xml" => "sitemaps#index", defaults: { format: :xml }
 

@@ -64,14 +64,19 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: app_host, protocol: app_protocol }
   config.action_controller.default_url_options = { host: app_host, protocol: app_protocol }
 
-  # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
-  # config.action_mailer.smtp_settings = {
-  #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
-  #   password: Rails.application.credentials.dig(:smtp, :password),
-  #   address: "smtp.example.com",
-  #   port: 587,
-  #   authentication: :plain
-  # }
+  # Gmail SMTP — set SMTP_USERNAME and SMTP_PASSWORD as env vars on Render.
+  if ENV["SMTP_PASSWORD"].present?
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address:              "smtp.gmail.com",
+      port:                 587,
+      domain:               ENV.fetch("APP_HOST", "example.com"),
+      user_name:            ENV.fetch("SMTP_USERNAME", "digital.diary85@gmail.com"),
+      password:             ENV["SMTP_PASSWORD"],
+      authentication:       :plain,
+      enable_starttls_auto: true
+    }
+  end
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
