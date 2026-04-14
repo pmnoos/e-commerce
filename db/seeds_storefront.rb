@@ -149,10 +149,21 @@ download_url_property = Spree::Property.find_or_create_by!(name: "Download URL",
   product.available_on ||= Time.current
   product.shipping_category ||= digital_category
   product.price = attrs[:price]
+  product.master.price = attrs[:price]
+  product.master.shipping_category ||= digital_category
   product.meta_title = attrs[:meta_title] if attrs[:meta_title]
   product.meta_keywords = attrs[:meta_keywords] if attrs[:meta_keywords]
   product.meta_description = attrs[:meta_description] if attrs[:meta_description]
+
+  unless product.valid?
+    raise "Product seed failed for #{attrs[:slug]}: #{product.errors.full_messages.join(', ')}"
+  end
+
   product.save!
+
+  if default_store && product.respond_to?(:stores) && !product.stores.exists?(default_store.id)
+    product.stores << default_store
+  end
 
   if attrs[:download_url].present?
     product_property = product.product_properties.find_or_initialize_by(property: download_url_property)
