@@ -39,7 +39,12 @@ namespace :app do
 
     Spree::ShippingCategory.find_or_create_by!(name: "Default")
     Spree::ShippingCategory.find_or_create_by!(name: "Digital")
-    Spree::StockLocation.create_with(backorderable_default: true).find_or_create_by!(name: "default")
+
+    stock_location = Spree::StockLocation.where(name: "default").first_or_initialize
+    stock_location.backorderable_default = true
+    stock_location.propagate_all_variants = false
+    stock_location.save!
+
     Spree::Role.find_or_create_by!(name: "admin")
 
     admin_email = ENV.fetch("ADMIN_EMAIL", "admin@example.com")

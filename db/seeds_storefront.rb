@@ -151,6 +151,7 @@ download_url_property = Spree::Property.find_or_create_by!(name: "Download URL",
   product.price = attrs[:price]
   product.master.price = attrs[:price]
   product.master.shipping_category ||= digital_category
+  product.master.track_inventory = false
   product.meta_title = attrs[:meta_title] if attrs[:meta_title]
   product.meta_keywords = attrs[:meta_keywords] if attrs[:meta_keywords]
   product.meta_description = attrs[:meta_description] if attrs[:meta_description]
@@ -159,7 +160,13 @@ download_url_property = Spree::Property.find_or_create_by!(name: "Download URL",
     raise "Product seed failed for #{attrs[:slug]}: #{product.errors.full_messages.join(', ')}"
   end
 
-  product.save!
+  begin
+    product.save!
+  rescue ActiveRecord::RecordInvalid => e
+    master_errors = product.master.errors.full_messages
+    price_errors = product.master.prices.flat_map { |price| price.errors.full_messages }
+    raise "Product save failed for #{attrs[:slug]}: #{e.record.class.name} #{e.record.errors.full_messages.join(', ')} | product=#{product.errors.full_messages.join(', ')} | master=#{master_errors.join(', ')} | prices=#{price_errors.join(', ')}"
+  end
 
   if default_store && product.respond_to?(:stores) && !product.stores.exists?(default_store.id)
     product.stores << default_store
