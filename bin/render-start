@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+run_step() {
+  local label="$1"
+  shift
+
+  echo "==> ${label}"
+  if "$@"; then
+    echo "==> ${label} complete"
+  else
+    local exit_code=$?
+    echo "==> ${label} failed with exit code ${exit_code}"
+    if [ "$1" = "bundle" ] && [ "$2" = "exec" ] && [ "$3" = "rails" ]; then
+      echo "==> Re-running ${label} with --trace"
+      bundle exec rails "${@:4}" --trace || true
+    fi
+    exit ${exit_code}
+  fi
+}
+
+run_step "Prepare primary database" bundle exec rails db:prepare
+run_step "Migrate cache database" bundle exec rails db:migrate:cache
+run_step "Migrate queue database" bundle exec rails db:migrate:queue
+run_step "Migrate cable database" bundle exec rails db:migrate:cable
+run_step "Bootstrap storefront" bundle exec rails app:bootstrap
+run_step "Configure PayPal" bundle exec rails paypal:setup
+
+echo "==> Starting Puma"
+exec bundle exec puma -C config/puma.rb
