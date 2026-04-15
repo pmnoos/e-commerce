@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+USE_SOLID_BACKENDS="${USE_SOLID_BACKENDS:-false}"
+
 run_step() {
   local label="$1"
   shift
@@ -19,10 +21,30 @@ run_step() {
   fi
 }
 
+ensure_table() {
+  local label="$1"
+  local table_name="$2"
+  local schema_task="$3"
+
+  echo "==> Checking ${label} schema"
+  if bundle exec rails runner "exit(ActiveRecord::Base.connection.data_source_exists?('${table_name}') ? 0 : 1)"; then
+    echo "==> ${label} schema present"
+  else
+    run_step "Load ${label} schema" bundle exec rails "${schema_task}"
+  fi
+}
+
 run_step "Prepare primary database" bundle exec rails db:prepare
-run_step "Migrate cache database" bundle exec rails db:migrate:cache
-run_step "Migrate queue database" bundle exec rails db:migrate:queue
-run_step "Migrate cable database" bundle exec rails db:migrate:cable
+
+if [ "$USE_SOLID_BACKENDS" = "true" ]; then
+  run_step "Migrate cache database" bundle exec rails db:migrate:cache
+  run_step "Migrate queue database" bundle exec rails db:migrate:queue
+  run_step "Migrate cable database" bundle exec rails db:migrate:cable
+  ensure_table "cache" "solid_cache_entries" "db:schema:load:cache"
+  ensure_table "queue" "solid_queue_jobs" "db:schema:load:queue"
+  ensure_table "cable" "solid_cable_messages" "db:schema:load:cable"
+fi
+
 run_step "Bootstrap storefront" bundle exec rails app:bootstrap
 run_step "Configure PayPal" bundle exec rails paypal:setup
 

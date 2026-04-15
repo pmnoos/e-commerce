@@ -1,6 +1,8 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  use_solid_backends = ENV["USE_SOLID_BACKENDS"] == "true"
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -50,12 +52,15 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :solid_cache_store
-
-  # Replace the default in-process and non-durable queuing backend for Active Job.
-  config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :queue } }
+  # Keep production deploys simple by default on single-service hosting.
+  if use_solid_backends
+    config.cache_store = :solid_cache_store
+    config.active_job.queue_adapter = :solid_queue
+    config.solid_queue.connects_to = { database: { writing: :queue } }
+  else
+    config.cache_store = :memory_store
+    config.active_job.queue_adapter = :async
+  end
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
