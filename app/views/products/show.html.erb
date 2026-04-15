@@ -75,6 +75,7 @@
         <%= render 'product_header', product: @product %>
         <%= render 'product_promotions', product: @product %>
         <%= render 'cart_line_items/form', product: @product %>
+        <%= render 'solidus_paypal_commerce_platform/product/product_buttons' if defined?(SolidusPaypalCommercePlatform::Engine) %>
         <%= render 'product_info', product: @product %>
       </div>
     </div>
