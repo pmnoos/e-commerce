@@ -60,6 +60,16 @@ Deployment configuration files are present in:
 
 Adjust environment variables and credentials before deploying.
 
+### Render note
+
+On Render, production now defaults to a simpler single-service setup:
+
+- cache uses `:memory_store`
+- jobs use the Rails `:async` adapter
+- Action Cable uses the `async` adapter
+
+If you later want to switch production back to the Solid Cache / Solid Queue / Solid Cable stack, set `USE_SOLID_BACKENDS=true` and ensure the extra database schemas are available before boot.
+
 ## PayPal Setup
 
 This project already includes `solidus_paypal_commerce_platform`.
