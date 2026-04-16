@@ -163,6 +163,80 @@
   padding: 1.1rem;
 }
 
+.featured-focus {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 1rem;
+}
+
+.featured-copy,
+.featured-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 1.15rem;
+}
+
+.featured-copy {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(42, 92, 138, 0.12) 0%, rgba(42, 92, 138, 0) 38%),
+    linear-gradient(180deg, #fffdfa 0%, #f8f4ec 100%);
+}
+
+.featured-points {
+  margin-top: 0.95rem;
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.featured-point {
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.95rem;
+}
+
+.featured-point h3,
+.featured-panel h3 {
+  margin: 0;
+  font: 700 1.2rem/1.05 "Cormorant Garamond", serif;
+}
+
+.featured-point p,
+.featured-panel p {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.featured-panel {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(42, 92, 138, 0.18) 0%, rgba(42, 92, 138, 0) 32%),
+    linear-gradient(160deg, #f5f9fd 0%, #e8f0f8 100%);
+  align-self: stretch;
+}
+
+.featured-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: #214b70;
+  background: rgba(42, 92, 138, 0.12);
+  border: 1px solid rgba(42, 92, 138, 0.2);
+  border-radius: 999px;
+  padding: 0.42rem 0.78rem;
+}
+
+.featured-price {
+  margin-top: 0.65rem;
+  font: 700 clamp(2rem, 4vw, 3rem)/0.95 "Cormorant Garamond", serif;
+  color: #214b70;
+}
+
 .portal-grid {
   margin-top: 0.9rem;
   display: grid;
@@ -412,9 +486,11 @@
 
 @media (max-width: 900px) {
   .hero-shell,
+  .featured-focus,
   .portal-grid,
   .info-grid,
-  .steps-grid {
+  .steps-grid,
+  .featured-points {
     grid-template-columns: 1fr;
   }
 

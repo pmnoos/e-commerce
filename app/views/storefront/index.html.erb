@@ -1,13 +1,13 @@
 <%
-  home_meta_title = "Digital Apps Store | Food Track, Diary, Autobiography & Term Deposit"
-  home_meta_description = "Discover practical digital apps, including Food Track for grocery spend analysis, plus diary writing, autobiography planning, and term tracking tools."
+  home_meta_title = "Term Deposit Tracker and Practical Digital Apps"
+  home_meta_description = "Start with Term Deposit Tracker to stay ahead of maturity dates, rates, and rollover decisions, then explore practical apps for groceries, diary writing, and autobiography planning."
   home_meta_image = "#{request.base_url}/storefront_favicon.svg"
 %>
 <% content_for :title, home_meta_title %>
 
 <% content_for :head do %>
   <meta name="description" content="<%= home_meta_description %>">
-  <meta name="keywords" content="digital apps store, food track app, grocery expense tracker, price history app, spending reports, diary app, autobiography app, term deposit tracker">
+  <meta name="keywords" content="term deposit tracker, maturity date tracker, rollover planning, grocery expense tracker, diary app, autobiography app, digital apps store">
   <meta property="og:type" content="website">
   <meta property="og:title" content="<%= home_meta_title %>">
   <meta property="og:description" content="<%= home_meta_description %>">
@@ -28,30 +28,63 @@
 
   <section class="hero-shell">
     <div class="hero-content">
-      <span class="pill">Digital Product Store</span>
-      <h1>Your Apps. Your Workflow.<br/> All in One Place.</h1>
-      <p>Use focused tools for writing, savings tracking, and grocery cost control. Food Track helps you log purchases, analyze price changes, and understand weekly, monthly, and yearly spend.</p>
+      <span class="pill">Lead Product: Term Deposit Tracker</span>
+      <h1>Stop Missing Maturity Dates and Weak Rollover Decisions.</h1>
+      <p>Term Deposit Tracker is the clearest starting point in the store: a focused tool for people managing savings across banks, terms, and maturity dates. See every deposit in one place, compare rates properly, and make your next move with more confidence.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="#catalog">Get Started</a>
-        <a class="btn btn-secondary" href="<%= admin_link %>">Admin</a>
+        <a class="btn btn-primary" href="/products/term-deposit-tracker">View Term Deposit Tracker</a>
+        <a class="btn btn-secondary" href="#catalog">Browse All Apps</a>
       </div>
     </div>
     <div class="hero-panel" aria-hidden="true">
       <div class="stat-card">
-        <h3>Apps Included</h3>
-        <p><%= @products.size %></p>
+        <h3>Best For</h3>
+        <p>Savers tracking multiple deposits and rollover dates</p>
       </div>
       <div class="stat-card">
-        <h3>Focus</h3>
-        <p>Food Track App<br/> Diary App<br/> Autobiography App<br/> Term Deposit Tracker</p>
+        <h3>Core Outcome</h3>
+        <p>Better visibility before deposits mature or underperform</p>
       </div>
     </div>
   </section>
 
+  <section class="featured-focus" aria-label="Featured product">
+    <div class="featured-copy">
+      <div class="section-head">
+        <h2>Start with the App Most Likely to Pay for Itself</h2>
+        <p>Term Deposit Tracker is the most direct value offer in the catalog. One missed maturity date, forgotten deposit, or weak rollover choice can cost more than the app.</p>
+      </div>
+      <div class="featured-points">
+        <article class="featured-point">
+          <h3>See every deposit in one place</h3>
+          <p>Track balances, institutions, rates, terms, and maturity dates without relying on scattered spreadsheets or memory.</p>
+        </article>
+        <article class="featured-point">
+          <h3>Stay ahead of deadlines</h3>
+          <p>Reduce the chance of money rolling into the wrong rate because you noticed the maturity too late.</p>
+        </article>
+        <article class="featured-point">
+          <h3>Make rollover choices with numbers</h3>
+          <p>Compare rates and review reinvestment scenarios before you lock in your next decision.</p>
+        </article>
+      </div>
+    </div>
+    <aside class="featured-panel">
+      <span class="featured-badge">One-time purchase</span>
+      <h3>Term Deposit Tracker</h3>
+      <p class="featured-price">$24</p>
+      <p>Built for self-directed savers, retirees managing cash reserves, and anyone laddering term deposits across institutions.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/products/term-deposit-tracker">See Product Page</a>
+        <a class="btn btn-secondary" href="https://pmnoos.github.io/term-tracker/" target="_blank" rel="noopener noreferrer">Open App Details</a>
+      </div>
+    </aside>
+  </section>
+
   <section class="portal-nav" aria-label="Primary navigation">
     <div class="section-head">
-      <h2>Choose Your Portal</h2>
-      <p>Use the customer path to browse and buy. Use the admin path to manage products and orders.</p>
+      <h2>Store Access</h2>
+      <p>Use the customer path to browse and buy. The admin path remains available for catalog and order management.</p>
     </div>
     <div class="portal-grid">
       <article class="portal-card">
@@ -74,6 +107,11 @@
 
   <% app_cards = [
        {
+         title: "Term Deposit Tracker",
+         description: "Track maturity dates, rates, institutions, and reinvestment decisions in one focused savings tool.",
+         slug: "term-deposit-tracker"
+       },
+       {
          title: "Diary App",
          description: "Django-based private diary with entries, image uploads, reminders, and installable PWA support.",
          slug: "my-diary-app"
@@ -82,11 +120,6 @@
          title: "Autobiography App",
          description: "Shape life stories into structured chapters, organise memories, and build a long-form personal narrative with clarity.",
          slug: "autobiography-app"
-       },
-       {
-         title: "Term Deposit Tracker",
-         description: "Monitor deposits, interest rates, maturity dates, and savings performance in one focused financial tool.",
-         slug: "term-deposit-tracker"
        },
        {
          title: "Food Track App",
@@ -105,22 +138,22 @@
   </section>
 
   <section class="steps" aria-label="How it works">
-    <h2>How It Works</h2>
+    <h2>Why Lead with Term Deposit Tracker</h2>
     <div class="steps-grid">
       <article class="step-card">
         <span class="step-index">1</span>
-        <h3>Pick your app</h3>
-        <p>Choose the tool that matches your writing style, from private daily notes to longer personal narratives.</p>
+        <h3>Clear financial pain point</h3>
+        <p>Customers immediately understand the risk of missed maturity dates, weak rates, and poorly timed rollovers.</p>
       </article>
       <article class="step-card">
         <span class="step-index">2</span>
-        <h3>Start your entries</h3>
-        <p>Add your content in minutes and build a habit with a clean interface designed for consistency.</p>
+        <h3>Easy value case</h3>
+        <p>A $24 one-time purchase is easy to justify when a single avoidable mistake can cost more than that.</p>
       </article>
       <article class="step-card">
         <span class="step-index">3</span>
-        <h3>Review and refine</h3>
-        <p>Revisit earlier drafts, shape your narrative, and turn scattered thoughts into a cohesive story.</p>
+        <h3>Strong first product</h3>
+        <p>Once the lead offer is clear, the rest of the catalog reads as additional practical tools rather than unrelated apps.</p>
       </article>
     </div>
   </section>
@@ -138,9 +171,9 @@
 
   <section id="catalog" class="catalog-wrap">
     <div class="section-head">
-      <h2>Everything You Need</h2>
-      <p>Explore practical apps for writing, budgeting, and everyday planning.</p>
-      <p>Food Track includes store management, purchase logging, spending reports, price history, recipe tracking, and menu planning.</p>
+      <h2>Explore the Full Catalog</h2>
+      <p>Start with Term Deposit Tracker, then explore the rest of the store for grocery tracking, diary writing, and autobiography planning.</p>
+      <p>Each app is a focused one-time purchase product built for a specific job instead of a bloated subscription bundle.</p>
     </div>
 
     <div class="catalog">
@@ -183,8 +216,8 @@
   </section>
 
   <section class="cta">
-    <h2>Ready to Focus on Writing?</h2>
-    <p>Start with one app today and build a lasting writing system around your own voice.</p>
-    <a class="btn btn-primary" href="/products">Browse Apps</a>
+    <h2>Start with the Strongest Offer</h2>
+    <p>Lead with Term Deposit Tracker if you want the clearest value proposition, then use the rest of the catalog as supporting products.</p>
+    <a class="btn btn-primary" href="/products/term-deposit-tracker">View Term Deposit Tracker</a>
   </section>
 </section>
