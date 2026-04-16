@@ -79,35 +79,39 @@ download_url_property = Spree::Property.find_or_create_by!(name: "Download URL",
     slug: "term-deposit-tracker",
     name: "Term Deposit Tracker",
     description: <<~DESC,
-      <h2>Take Control of Your Term Deposits - All in One Place</h2>
+      <h2>Stop Losing Track of Maturity Dates, Rates, and Rollover Decisions</h2>
 
-      <p>Term Deposit Tracker is a practical finance tool for people who want real visibility over their cash savings. Instead of juggling spreadsheets, paper notes, and maturity reminders in your head, you get one place to track balances, rates, maturity dates, and reinvestment decisions with clarity.</p>
+      <p>Term Deposit Tracker gives you one practical place to manage your term deposits before small oversights turn into expensive mistakes. Instead of relying on memory, scattered spreadsheets, or bank emails you might miss, you can see every deposit, rate, maturity date, and reinvestment decision in one focused dashboard.</p>
 
-      <h3>Key Features</h3>
+      <p>If you manage multiple deposits across different institutions, this app helps you stay ahead of maturity dates, compare returns properly, and make rollover decisions with more confidence and less guesswork.</p>
+
+      <h3>What You Can Do</h3>
       <ul>
-        <li><strong>Centralised Dashboard</strong> - See every deposit, institution, rate, term, and projected return in one view.</li>
-        <li><strong>Maturity Alerts</strong> - Get ahead of rollover deadlines before money sits at the wrong rate by default.</li>
-        <li><strong>Interest Calculator</strong> - Compare scenarios quickly so you can make decisions with numbers instead of guesswork.</li>
-        <li><strong>Rate Comparison Tool</strong> - Spot underperforming deposits and identify where better returns may be available.</li>
-        <li><strong>Reinvestment Planner</strong> - Model rollover, withdrawal, top-up, or split strategies before committing funds.</li>
-        <li><strong>Portfolio Summary</strong> - Understand your total savings position, weighted return, and expected cash flow at a glance.</li>
-        <li><strong>Transaction History</strong> - Maintain a clean record of openings, closures, rollovers, and adjustments.</li>
-        <li><strong>Secure &amp; Private</strong> - Track savings without handing over bank logins or relying on disconnected spreadsheets.</li>
+        <li><strong>Track Every Deposit Clearly</strong> - Keep balances, institutions, rates, terms, and maturity dates together in one view.</li>
+        <li><strong>Stay Ahead of Maturity Dates</strong> - Reduce the risk of deposits rolling over at the wrong rate because you noticed too late.</li>
+        <li><strong>Compare Rates Properly</strong> - See which deposits are performing well and where your money may be underperforming.</li>
+        <li><strong>Model Reinvestment Choices</strong> - Review rollover, withdrawal, top-up, or split scenarios before you commit.</li>
+        <li><strong>See Portfolio-Level Impact</strong> - Understand total savings position, expected returns, and upcoming cash-flow events.</li>
+        <li><strong>Keep a Clean Savings Record</strong> - Maintain a usable history of openings, closures, changes, and reinvestment decisions.</li>
+        <li><strong>Avoid Spreadsheet Drift</strong> - Replace scattered notes and aging spreadsheets with a more deliberate tracking workflow.</li>
+        <li><strong>Keep It Private</strong> - Manage savings without sharing bank logins or depending on generic budgeting software.</li>
       </ul>
 
       <h3>Who Is It For?</h3>
-      <p>Term Deposit Tracker is built for self-directed savers, retirees managing income streams, investors laddering deposits across banks, and business owners who want tighter control over reserve cash.</p>
+      <p>Term Deposit Tracker is built for self-directed savers, retirees managing income-producing cash, investors laddering deposits across institutions, and business owners who want tighter control over reserve funds.</p>
 
       <h3>Why Term Deposit Tracker?</h3>
-      <p>At $24, this app earns its place by helping prevent costly inattention. One missed maturity date or poor rollover choice can cost more than the price of the app. Term Deposit Tracker gives you a clearer process, better visibility, and more confidence in how your savings are managed.</p>
+      <p>At $24, the value proposition is simple: one missed maturity date, one weak rollover decision, or one forgotten deposit can cost more than the app itself. Term Deposit Tracker helps you replace passive savings management with a clearer process and better timing.</p>
 
-      <p><em>Start tracking smarter today - your savings will thank you.</em></p>
+      <p>This is not about adding complexity. It is about reducing avoidable mistakes, improving visibility, and giving yourself a better basis for each savings decision.</p>
+
+      <p><em>Know when your deposits mature, compare your options, and make the next move with confidence.</em></p>
     DESC
     price: 24.0,
     download_url: "https://pmnoos.github.io/term-tracker/",
-    meta_title: "Term Deposit Tracker | Maturity Alerts, Rates and Reinvestment Planning",
-    meta_keywords: "term deposit tracker, maturity alerts, rate comparison, savings tracker, reinvestment planner, fixed deposit",
-    meta_description: "Track term deposits, compare rates, monitor maturity dates, and plan reinvestment decisions with a one-time purchase savings tool."
+    meta_title: "Term Deposit Tracker | Track Maturity Dates, Rates and Rollover Decisions",
+    meta_keywords: "term deposit tracker, maturity date tracker, rollover planning, rate comparison, fixed deposit tracker, savings maturity alerts",
+    meta_description: "Track term deposits, stay ahead of maturity dates, compare rates, and make better rollover decisions with a practical one-time purchase savings tool."
   },
   {
     slug: "grocery-expense-tracker",
